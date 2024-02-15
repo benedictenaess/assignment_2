@@ -1,0 +1,107 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	background-color: rgb(255, 228, 211);
+	text-align: center;
+	padding: 2rem;
+}
+
+main {
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: row;
+}
+
+.input-container {
+	flex-basis: 30%;
+	justify-content: center;
+	display: flex;
+	padding: 2rem;
+	background-color: rgb(254, 162, 105);
+}
+
+.input-form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+form div {
+	display: flex;
+	justify-content: space-between;
+}
+
+input, select {
+	width: 10rem;
+	height: 1.4rem;
+	margin-left: 1rem;
+}
+
+.submit-button {
+	width: 6rem;
+	height: 1.8rem;
+	font-size: inherit;
+}
+
+.display-container {
+	background-color: rgb(255, 228, 211);
+	flex-basis: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+}
+.display-button-container {
+		flex-basis: 15%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 5rem;
+}
+
+.display-button-container button {
+	padding: 0.5rem;
+	font-size: inherit;
+	background-color: rgb(254, 162, 105);
+	border: 1px solid grey;
+	border-radius: 2px;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: rgb(248, 117, 36);
+	border: 1px solid grey;
+	border-radius: 2px;
+}
+
+.display-products-container {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	flex-basis: 85%;
+	width: 100%;
+	padding: 0 1rem;
+}
+
+.header {
+	display: flex;
+	height: 2.5rem;
+	font-weight: bold;
+	background-color: azure;
+	border: 2px solid white;
+	border-radius: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.header span {
+	flex-basis: 20%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

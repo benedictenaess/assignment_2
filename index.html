@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style/style.css">
+	<title>Pharmacy Inventory Management System</title>
+</head>
+<body>
+	<h1>Pharmacy Inventory Management System</h1>
+	<main>
+		<section class="input-container">
+			<form class="input-form">
+				<h3>Product information</h3>
+				<div>
+					<label for="name">Product name</label>
+					<input type="text" name="name">
+				</div>
+				<div>
+					<label for="id">Product ID</label>
+					<input type="text" name="id">
+				</div>
+				<div>
+					<label for="manufacturer">Manufacturer</label>
+					<input type="text" name="manufacturer">
+				</div>
+				<div>
+					<label for="date">Expiration date</label>
+					<input type="text" name="date">
+				</div>
+				<div>
+					<label for="quantity">Quantity</label>
+					<input type="text" name="quantity">
+				</div>
+				<div>
+					<label for="form">Form</label>
+					<select name="form" id="form">
+						<option value="select" disabled selected>Please select an option</option>
+						<option value="liquid">Liquid</option>
+						<option value="capsule">Capsule</option>
+					</select>
+				</div>
+				<div>
+					<label for="volume">Volume in ml</label>
+					<input type="number" name="volume">
+				</div>
+				<div>
+					<label for="dose">Dosage in mg</label>
+					<input type="number" name="dose">
+				</div>
+				<button class="submit-button">Submit</button>
+			</form>
+		</section>
+		<section class="display-container">
+			<div class="display-button-container">
+				<button>Display liquid products</button>
+				<button>Display capsule products</button>
+			</div>
+			<div class="display-products-container">
+				<div class="display-liquid-container">
+					<div class="display-liquid-products">
+						<div class="liquid-header header">
+							<span>Product name</span>
+							<span>Product ID</span>
+							<span>Manufacturer</span>
+							<span>Expiration date</span>
+							<span>Quantity</span>
+							<span>Volume</span>
+						</div>
+						<ul></ul>
+					</div>
+				</div>
+				<div class="display-capsule-container">
+					<div class="display-capsule-products">
+						<div class="capsule-header header">
+							<span>Product name</span>
+							<span>Product ID</span>
+							<span>Manufacturer</span>
+							<span>Expiration date</span>
+							<span>Quantity</span>
+							<span>Dosage</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<script src="js/app.js"></script>
+	</body>
+</html>
