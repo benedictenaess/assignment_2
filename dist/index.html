@@ -13,27 +13,27 @@
 				<h2>Product information</h2>
 				<div>
 					<label for="name">Product name</label>
-					<input type="text" name="name">
+					<input type="text" name="name" class="name-input">
 				</div>
-				<div>
+				<!-- <div>
 					<label for="id">Product ID</label>
-					<input type="text" name="id">
-				</div>
+					<input type="number" name="id" class="id-input">
+				</div> -->
 				<div>
 					<label for="manufacturer">Manufacturer</label>
-					<input type="text" name="manufacturer">
+					<input type="text" name="manufacturer" class="manufacturer-input">
 				</div>
 				<div>
 					<label for="date">Expiration date</label>
-					<input type="text" name="date">
+					<input type="date" name="date" class="expiration-date-input">
 				</div>
 				<div>
 					<label for="quantity">Quantity</label>
-					<input type="text" name="quantity">
+					<input type="number" name="quantity" class="quantity-input">
 				</div>
 				<div>
 					<label for="form">Form</label>
-					<select name="form" id="form">
+					<select name="form" id="form" class="select-input">
 						<option value="select" disabled selected>Please select an option</option>
 						<option value="liquid">Liquid</option>
 						<option value="capsule">Capsule</option>
@@ -41,12 +41,13 @@
 				</div>
 				<div>
 					<label for="volume">Volume in ml</label>
-					<input type="number" name="volume">
+					<input type="number" name="volume" class="volume-input" disabled>
 				</div>
 				<div>
 					<label for="content">Content in mg</label>
-					<input type="number" name="content">
+					<input type="number" name="content" class="content-input" disabled>
 				</div>
+				<p class="error-message">Error message</p>
 				<button class="submit-button">Submit</button>
 			</form>
 		</section>
@@ -60,8 +61,8 @@
 				<div class="display-liquid-container">
 					<div class="display-liquid-products">
 						<div class="liquid-header header">
+							<span>ID</span>
 							<span>Product name</span>
-							<span>Product ID</span>
 							<span>Manufacturer</span>
 							<span>Expiration date</span>
 							<span>Quantity</span>
@@ -74,8 +75,8 @@
 				<div class="display-capsule-container">
 					<div class="display-capsule-products">
 						<div class="capsule-header header">
+							<span>ID</span>
 							<span>Product name</span>
-							<span>Product ID</span>
 							<span>Manufacturer</span>
 							<span>Expiration date</span>
 							<span>Quantity</span>

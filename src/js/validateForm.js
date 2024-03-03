@@ -1,12 +1,33 @@
-const validateInput = (name, id, manufacturer, expirationDate, quantity, form, errorSpan)=>{
+const validateInput = (name, manufacturer, expirationDate, quantity,selectElement, volume, content, errorSpan)=>{
 	let errors = {
 		errorStatus: false,
 		errorMsg: '',
 	}
-	if (!name || !id || !manufacturer || !expirationDate || !quantity || !form){
+	if (!name || !manufacturer || !expirationDate || !quantity){
 		errors = {
 			errorStatus: true,
 			errorMsg: 'All fields must be filled out'
+		}
+		errorSpan.style.visibility = 'visible';
+		errorSpan.textContent = errors.errorMsg;
+	} if (selectElement === 'select'){
+		errors = {
+			errorStatus: true,
+			errorMsg: 'All fields must be filled out',
+		}
+		errorSpan.style.visibility = 'visible';
+		errorSpan.textContent = errors.errorMsg;
+	}else if(selectElement === 'liquid' && !volume){
+		errors = {
+			errorStatus: true,
+			errorMsg: 'All fields must be filled out',
+		}
+		errorSpan.style.visibility = 'visible';
+		errorSpan.textContent = errors.errorMsg;
+	} else if (selectElement === 'capsule' && !content){
+		errors = {
+			errorStatus: true,
+			errorMsg: 'All fields must be filled out',
 		}
 		errorSpan.style.visibility = 'visible';
 		errorSpan.textContent = errors.errorMsg;
@@ -22,11 +43,13 @@ const validateInput = (name, id, manufacturer, expirationDate, quantity, form, e
 	const validationErrorStatus = ()=>{
 		return errors.errorStatus
 	}
-	return {validateInput}
+	return {validationErrorStatus}
 }
 
-const removeErrorMsg =(name, id, manufacturer, expirationDate, quantity, form, errorSpan)=>{
-	if (name && id && manufacturer && expirationDate && quantity && form){
-		errorSpan.style.visibility = 'hidden';
-	}
-}
+// const removeErrorMsg =(name, id, manufacturer, expirationDate, quantity, form, errorSpan)=>{
+// 	if (name && manufacturer && expirationDate && quantity){
+// 		errorSpan.style.visibility = 'hidden';
+// 	}
+// }
+
+export {validateInput}
