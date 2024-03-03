@@ -1,4 +1,4 @@
-import {validateInput, validateSelected} from './validateForm'
+import {validateInput} from './validateForm'
 
 //ELEMENTS FROM DOM
 const nameInput = document.querySelector('.name-input');
@@ -15,10 +15,14 @@ const errorMsg = document.querySelector('.error-message');
 
 const submitButton = document.querySelector('.submit-button');
 
+//ARRAYS
+const products = [];
+const liquidProducts = [];
+
 //FORM VALIDATION
 submitButton.addEventListener('click', (e)=>{
 	e.preventDefault();
-	validateInput(nameInput.value, manufacturerInput.value, expirationDateInput.value, quantityInput.value, selectInput.value, volumeInput.value, contentInput.value, errorMsg);
+	validateInput(nameInput.value, manufacturerInput.value, expirationDateInput.value, selectInput.value, volumeInput.value, contentInput.value, errorMsg);
 })
 
 selectInput.addEventListener('change', ()=>{
@@ -33,28 +37,24 @@ selectInput.addEventListener('change', ()=>{
 	}
 })
 
-//ID GENERATOR
-const generateId = ()=>{
-	const randomNum = Math.floor(Math.random()*1000000);
-	return randomNum;
-}
-
-//CLASSES
+CLASSES
 class Product {
-	constructor(name, id, manufacturer, date, quantity, volume){
+	constructor(name, manufacturer, date, quantity, volume){
 		this.name = name;
-		this.id = id;
 		this.manufacturer = manufacturer;
 		this.date = date;
 		this.quantity = quantity;
 		this.volume = volume;
 		this.ID = Date.now();
 	}
+	static addProduct(product) {
+		
+	}
 }
 
 class LiquidProduct extends Product {
-	constructor(name, id, manufacturer, date, quantity, content){
-		super(name, id, manufacturer, date, quantity)
+	constructor(name, manufacturer, date, quantity, content){
+		super(name, manufacturer, date, quantity)
 		this.content = content;
 		this.ID = Date.now();
 	}

@@ -1,9 +1,9 @@
-const validateInput = (name, manufacturer, expirationDate, quantity,selectElement, volume, content, errorSpan)=>{
+const validateInput = (name, manufacturer, expirationDate,selectElement, volume, content, errorSpan)=>{
 	let errors = {
 		errorStatus: false,
 		errorMsg: '',
 	}
-	if (!name || !manufacturer || !expirationDate || !quantity){
+	if (!name || !manufacturer || !expirationDate){
 		errors = {
 			errorStatus: true,
 			errorMsg: 'All fields must be filled out'
