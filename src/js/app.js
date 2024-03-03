@@ -15,6 +15,8 @@ const errorMsg = document.querySelector('.error-message');
 const submitForm = document.querySelector('.input-form');
 const submitButton = document.querySelector('.submit-button');
 
+const productUl = document.querySelector('.product-ul');
+
 //ARRAYS
 const liquidProducts = [];
 const capsuleProducts = [];
@@ -22,6 +24,7 @@ const capsuleProducts = [];
 //ADDEVENTLISTENERS
 submitForm.addEventListener('submit', (e)=>{
 	e.preventDefault();
+	// validateInput(nameInput.value, manufacturerInput.value, expirationDateInput.value, selectInput.value, volumeInput.value, contentInput.value, errorMsg);
 	let newProduct;
 	if (selectInput.value === 'liquid'){
 		newProduct = new Product(
@@ -42,12 +45,9 @@ submitForm.addEventListener('submit', (e)=>{
 	}
 	Product.addProduct(newProduct);
 	console.log(newProduct);
+	const allProducts = [...liquidProducts, ...capsuleProducts];
+	Display.renderProducts(allProducts);
 })
-
-// submitButton.addEventListener('click', (e)=>{
-// 	e.preventDefault();
-// 	validateInput(nameInput.value, manufacturerInput.value, expirationDateInput.value, selectInput.value, volumeInput.value, contentInput.value, errorMsg);
-// })
 
 selectInput.addEventListener('change', ()=>{
 	if(selectInput.value === 'liquid'){
@@ -78,6 +78,12 @@ class Product {
 			capsuleProducts.push(product);
 		}
 	}
+	// static deleteProduct(id, productArray){
+	// 	const index = productArray.findIndexOf(product => product.ID.toString() === id.toString());
+	// 	if(index !== -1){
+	// 		productArray.splice(index, 1);
+	// 	}
+	// }
 }
 
 class CapsuleProduct extends Product {
@@ -85,5 +91,56 @@ class CapsuleProduct extends Product {
 		super(name, manufacturer, expirationDate, form)
 		this.quantityMg = quantityMg;
 		this.ID = Date.now();
+	}
+}
+
+//DISPLAY CLASS
+class Display {
+	// static activeTab = 'liquid';
+
+	static renderProducts(products) {
+		productUl.textContent = '';
+		products.forEach((product)=>{
+
+			//ELEMENTS FROM DOM
+			const productRow = document.createElement('li');
+			const renderId = document.createElement('span');
+			const renderName = document.createElement('span');
+			const renderManufactorer = document.createElement('span');
+			const renderExpirationDate = document.createElement('span');
+			const renderForm = document.createElement('span');
+			const renderQuantity = document.createElement('span');
+			const renderRemove = document.createElement('span');
+			const renderRemoveButton = document.createElement('button');
+			
+			//APPEND
+			productUl.append(productRow);
+			productRow.append(renderId, renderName, renderManufactorer, renderExpirationDate, renderForm, renderQuantity, renderRemove );
+			renderRemove.append(renderRemoveButton);
+			
+			//ADD CLASSES HERE!!!!!!!!!!!!!!
+			
+			//TEXTCONTENT
+			renderId.textContent = product.ID;
+			renderName.textContent = product.name;
+			renderManufactorer.textContent = product.manufacturer;
+			renderExpirationDate.textContent = product.expirationDate;
+			renderForm.textContent = product.form;
+			renderRemoveButton.textContent = 'Delete';
+			
+			if(product instanceof CapsuleProduct){
+				renderQuantity.textContent = `${product.quantityMg} mg`;
+			}
+			if(!(product instanceof CapsuleProduct)) {
+				renderQuantity.textContent = `${product.quantityMl}`;
+			}
+			
+			//DELETE
+			// productRow.dataset.id = product.ID;
+			// renderRemoveButton.addEventListener('click', (e)=>{
+			// 	const productId = e.currentTarget.parentElement.parentElement.dataset.id;
+			// 	Product.deleteProduct(productId, product);
+			// })
+		})
 	}
 }

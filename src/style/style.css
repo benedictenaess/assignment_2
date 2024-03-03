@@ -112,7 +112,7 @@ button:hover {
 }
 
 .header span {
-	flex-basis: 16%;
+	flex-basis: 14%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
