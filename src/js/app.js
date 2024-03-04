@@ -9,10 +9,7 @@ const dosageInput = document.querySelector('.dosage-input');
 const quantityInput = document.querySelector('.quantity-input');
 
 const errorMsg = document.querySelector('.error-message');
-
 const submitForm = document.querySelector('.input-form');
-const submitButton = document.querySelector('.submit-button');
-
 const productUl = document.querySelector('.product-ul');
 
 //ARRAYS
@@ -28,7 +25,7 @@ submitForm.addEventListener('submit', (e)=>{
 	} else {
 		let newProduct;
 		if (selectInput.value === 'liquid'){
-			newProduct = new Product(
+			newProduct = new LiquidProduct(
 				nameInput.value,
 				manufacturerInput.value,
 				expirationDateInput.value,
@@ -45,7 +42,7 @@ submitForm.addEventListener('submit', (e)=>{
 			);
 		}
 		Product.addProduct(newProduct);
-		console.log(newProduct);
+		// console.log(newProduct);
 		const allProducts = [...liquidProducts, ...capsuleProducts];
 		Display.renderProducts(allProducts);
 		submitForm.reset();
@@ -66,12 +63,11 @@ selectInput.addEventListener('change', ()=>{
 
 // CLASSES
 class Product {
-	constructor(name, manufacturer, expirationDate, form, quantityMl){
+	constructor(name, manufacturer, expirationDate, form){
 		this.name = name;
 		this.manufacturer = manufacturer;
 		this.expirationDate = expirationDate;
 		this.form = form;
-		this.quantityMl = quantityMl;
 		this.ID = Date.now();
 	}
 	static addProduct(product) {
@@ -89,10 +85,18 @@ class Product {
 	// }
 }
 
-class CapsuleProduct extends Product {
-	constructor(name, manufacturer, expirationDate, form, quantityMg){
+class LiquidProduct extends Product {
+	constructor(name, manufacturer, expirationDate, form, dosage){
 		super(name, manufacturer, expirationDate, form)
-		this.quantityMg = quantityMg;
+		this.dosage = dosage;
+		this.ID = Date.now();
+	}
+}
+
+class CapsuleProduct extends Product {
+	constructor(name, manufacturer, expirationDate, form, quantity){
+		super(name, manufacturer, expirationDate, form)
+		this.quantity = quantity;
 		this.ID = Date.now();
 	}
 }
@@ -122,7 +126,9 @@ class Display {
 			renderRemove.append(renderRemoveButton);
 			
 			//ADD CLASSES HERE!!!!!!!!!!!!!!
-			
+			productRow.classList.add('product-row');
+			renderRemoveButton.classList.add('delete-button');
+
 			//TEXTCONTENT
 			renderId.textContent = product.ID;
 			renderName.textContent = product.name;
@@ -132,10 +138,10 @@ class Display {
 			renderRemoveButton.textContent = 'Delete';
 			
 			if(product instanceof CapsuleProduct){
-				renderQuantity.textContent = `${product.quantityMg} mg`;
+				renderQuantity.textContent = `${product.quantity} mg`;
 			}
-			if(!(product instanceof CapsuleProduct)) {
-				renderQuantity.textContent = `${product.quantityMl}`;
+			if((product instanceof LiquidProduct)) {
+				renderQuantity.textContent = `${product.dosage} ml`;
 			}
 			
 			//DELETE
