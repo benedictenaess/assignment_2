@@ -44,7 +44,7 @@ submitForm.addEventListener('submit', (e)=>{
 		Product.addProduct(newProduct);
 		// console.log(newProduct);
 		const allProducts = [...liquidProducts, ...capsuleProducts];
-		Display.renderProducts(allProducts);
+		Render.renderProducts(allProducts);
 		submitForm.reset();
 	}
 })
@@ -101,17 +101,19 @@ class CapsuleProduct extends Product {
 	}
 }
 
-//DISPLAY CLASS
-class Display {
+//Render CLASS
+class Render {
 	// static activeTab = 'liquid';
 
 	static renderProducts(products) {
 		productUl.textContent = '';
+		let index = 0;
 		products.forEach((product)=>{
+			index ++;
 
 			//ELEMENTS FROM DOM
 			const productRow = document.createElement('li');
-			const renderId = document.createElement('span');
+			const renderNumber = document.createElement('span');
 			const renderName = document.createElement('span');
 			const renderManufactorer = document.createElement('span');
 			const renderExpirationDate = document.createElement('span');
@@ -122,15 +124,15 @@ class Display {
 			
 			//APPEND
 			productUl.append(productRow);
-			productRow.append(renderId, renderName, renderManufactorer, renderExpirationDate, renderForm, renderQuantity, renderRemove );
+			productRow.append(renderNumber, renderName, renderManufactorer, renderExpirationDate, renderForm, renderQuantity, renderRemove );
 			renderRemove.append(renderRemoveButton);
 			
-			//ADD CLASSES HERE!!!!!!!!!!!!!!
+			//ADD CLASSES
 			productRow.classList.add('product-row');
 			renderRemoveButton.classList.add('delete-button');
 
 			//TEXTCONTENT
-			renderId.textContent = product.ID;
+			renderNumber.textContent = index;
 			renderName.textContent = product.name;
 			renderManufactorer.textContent = product.manufacturer;
 			renderExpirationDate.textContent = product.expirationDate;
@@ -138,7 +140,7 @@ class Display {
 			renderRemoveButton.textContent = 'Delete';
 			
 			if(product instanceof CapsuleProduct){
-				renderQuantity.textContent = `${product.quantity} mg`;
+				renderQuantity.textContent = `${product.quantity} pcs`;
 			}
 			if((product instanceof LiquidProduct)) {
 				renderQuantity.textContent = `${product.dosage} ml`;
