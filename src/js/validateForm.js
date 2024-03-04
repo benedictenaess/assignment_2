@@ -1,4 +1,4 @@
-const validateInput = (name, manufacturer, expirationDate,selectElement, volume, content, errorSpan)=>{
+const validateInput = (name, manufacturer, expirationDate, selectElement, dosage, quantity, errorSpan)=>{
 	let errors = {
 		errorStatus: false,
 		errorMsg: '',
@@ -17,14 +17,14 @@ const validateInput = (name, manufacturer, expirationDate,selectElement, volume,
 		}
 		errorSpan.style.visibility = 'visible';
 		errorSpan.textContent = errors.errorMsg;
-	}else if(selectElement === 'liquid' && !volume){
+	}else if(selectElement === 'liquid' && !dosage){
 		errors = {
 			errorStatus: true,
 			errorMsg: 'All fields must be filled out',
 		}
 		errorSpan.style.visibility = 'visible';
 		errorSpan.textContent = errors.errorMsg;
-	} else if (selectElement === 'capsule' && !content){
+	} else if (selectElement === 'capsule' && !quantity){
 		errors = {
 			errorStatus: true,
 			errorMsg: 'All fields must be filled out',
