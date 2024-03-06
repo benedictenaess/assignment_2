@@ -15,9 +15,14 @@ const productUl = document.querySelector('.product-ul');
 //ARRAYS
 // const liquidProducts = [];
 // const capsuleProducts = [];
-const allProducts = [];
+const allProducts = JSON.parse(localStorage.getItem('productData')) || [];
 
 //ADDEVENTLISTENERS
+
+document.addEventListener('DOMContentLoaded', ()=>{
+	UI.renderProducts(allProducts);
+})
+
 submitForm.addEventListener('submit', (e)=>{
 	e.preventDefault();
 	const {validationErrorStatus} = validateInput(nameInput.value.trim(), manufacturerInput.value.trim(), expirationDateInput.value, selectInput.value, dosageInput.value.trim(), quantityInput.value.trim(), errorMsg);
@@ -43,11 +48,10 @@ submitForm.addEventListener('submit', (e)=>{
 			);
 		}
 		Product.addProduct(newProduct);
-		console.log(newProduct);
-		// console.log(liquidProducts);
-		// console.log(capsuleProducts);
-		console.log(allProducts);
-		UI.renderProducts();
+		// console.log(newProduct);
+		// console.log(allProducts);
+		storeProduct(allProducts);
+		UI.renderProducts(allProducts);
 		submitForm.reset();
 	}
 })
@@ -85,7 +89,12 @@ class Product {
 		const index = productArray.findIndex(product => product.ID.toString() === id.toString());
 		if(index !== -1){
 			productArray.splice(index, 1);
-			UI.renderProducts();
+			UI.renderProducts(productArray);
+			if (productArray.length <= 0){
+				localStorage.removeItem('productData');
+			} else {
+				storeProduct(productArray);
+			}
 		}
 	}
 }
@@ -106,7 +115,7 @@ class CapsuleProduct extends Product {
 
 //Render CLASS
 class UI {
-	static renderProducts() {
+	static renderProducts(allProducts) {
 		productUl.textContent = '';
 		let index = 0;
 
@@ -143,8 +152,7 @@ class UI {
 			
 			if(product instanceof CapsuleProduct){
 				renderQuantity.textContent = `${product.quantity} pcs`;
-			}
-			if((product instanceof LiquidProduct)) {
+			} else if (product instanceof LiquidProduct) {
 				renderQuantity.textContent = `${product.dosage} ml`;
 			}
 			
@@ -159,3 +167,8 @@ class UI {
 		})
 	}
 }
+
+//LOCAL STORAGE
+function storeProduct(productArray){
+	localStorage.setItem('productData', JSON.stringify(productArray));
+};
