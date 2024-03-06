@@ -20,7 +20,7 @@ const allProducts = [];
 //ADDEVENTLISTENERS
 submitForm.addEventListener('submit', (e)=>{
 	e.preventDefault();
-	const {validationErrorStatus} = validateInput(nameInput.value, manufacturerInput.value, expirationDateInput.value, selectInput.value, dosageInput.value, quantityInput.value, errorMsg);
+	const {validationErrorStatus} = validateInput(nameInput.value.trim(), manufacturerInput.value.trim(), expirationDateInput.value, selectInput.value, dosageInput.value.trim(), quantityInput.value.trim(), errorMsg);
 	if (validationErrorStatus()){
 		return
 	} else {
@@ -86,7 +86,6 @@ class Product {
 		if(index !== -1){
 			productArray.splice(index, 1);
 			UI.renderProducts();
-
 		}
 	}
 }
