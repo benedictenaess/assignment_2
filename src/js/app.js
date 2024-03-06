@@ -13,8 +13,9 @@ const submitForm = document.querySelector('.input-form');
 const productUl = document.querySelector('.product-ul');
 
 //ARRAYS
-const liquidProducts = [];
-const capsuleProducts = [];
+// const liquidProducts = [];
+// const capsuleProducts = [];
+const allProducts = [];
 
 //ADDEVENTLISTENERS
 submitForm.addEventListener('submit', (e)=>{
@@ -42,9 +43,11 @@ submitForm.addEventListener('submit', (e)=>{
 			);
 		}
 		Product.addProduct(newProduct);
-		// console.log(newProduct);
-		const allProducts = [...liquidProducts, ...capsuleProducts];
-		Render.renderProducts(allProducts);
+		console.log(newProduct);
+		// console.log(liquidProducts);
+		// console.log(capsuleProducts);
+		console.log(allProducts);
+		UI.renderProducts();
 		submitForm.reset();
 	}
 })
@@ -71,25 +74,27 @@ class Product {
 		this.ID = Date.now();
 	}
 	static addProduct(product) {
-		if(product.form === 'liquid'){
-			liquidProducts.push(product);
-		} else if (product.form === 'capsule') {
-			capsuleProducts.push(product);
+		// if(product.form === 'liquid'){
+		// 	liquidProducts.push(product);
+		// } else if (product.form === 'capsule') {
+		// 	capsuleProducts.push(product);
+		// }
+		allProducts.push(product);
+	}
+	static deleteProduct(id, productArray){
+		const index = productArray.findIndex(product => product.ID.toString() === id.toString());
+		if(index !== -1){
+			productArray.splice(index, 1);
+			UI.renderProducts();
+
 		}
 	}
-	// static deleteProduct(id, productArray){
-	// 	const index = productArray.findIndexOf(product => product.ID.toString() === id.toString());
-	// 	if(index !== -1){
-	// 		productArray.splice(index, 1);
-	// 	}
-	// }
 }
 
 class LiquidProduct extends Product {
 	constructor(name, manufacturer, expirationDate, form, dosage){
 		super(name, manufacturer, expirationDate, form)
 		this.dosage = dosage;
-		this.ID = Date.now();
 	}
 }
 
@@ -97,18 +102,16 @@ class CapsuleProduct extends Product {
 	constructor(name, manufacturer, expirationDate, form, quantity){
 		super(name, manufacturer, expirationDate, form)
 		this.quantity = quantity;
-		this.ID = Date.now();
 	}
 }
 
 //Render CLASS
-class Render {
-	// static activeTab = 'liquid';
-
-	static renderProducts(products) {
+class UI {
+	static renderProducts() {
 		productUl.textContent = '';
 		let index = 0;
-		products.forEach((product)=>{
+
+		allProducts.forEach((product)=>{
 			index ++;
 
 			//ELEMENTS FROM DOM
@@ -120,16 +123,16 @@ class Render {
 			const renderForm = document.createElement('span');
 			const renderQuantity = document.createElement('span');
 			const renderRemove = document.createElement('span');
-			const renderRemoveButton = document.createElement('button');
+			const removeButton = document.createElement('button');
 			
 			//APPEND
 			productUl.append(productRow);
 			productRow.append(renderNumber, renderName, renderManufactorer, renderExpirationDate, renderForm, renderQuantity, renderRemove );
-			renderRemove.append(renderRemoveButton);
+			renderRemove.append(removeButton);
 			
 			//ADD CLASSES
 			productRow.classList.add('product-row');
-			renderRemoveButton.classList.add('delete-button');
+			removeButton.classList.add('delete-button');
 
 			//TEXTCONTENT
 			renderNumber.textContent = index;
@@ -137,7 +140,7 @@ class Render {
 			renderManufactorer.textContent = product.manufacturer;
 			renderExpirationDate.textContent = product.expirationDate;
 			renderForm.textContent = product.form;
-			renderRemoveButton.textContent = 'Delete';
+			removeButton.textContent = 'Delete';
 			
 			if(product instanceof CapsuleProduct){
 				renderQuantity.textContent = `${product.quantity} pcs`;
@@ -147,11 +150,13 @@ class Render {
 			}
 			
 			//DELETE
-			// productRow.dataset.id = product.ID;
-			// renderRemoveButton.addEventListener('click', (e)=>{
-			// 	const productId = e.currentTarget.parentElement.parentElement.dataset.id;
-			// 	Product.deleteProduct(productId, product);
-			// })
+			productRow.dataset.id = product.ID;
+
+			removeButton.addEventListener('click', (e)=>{
+				const productId = e.currentTarget.parentElement.parentElement.dataset.id;
+				Product.deleteProduct(productId, allProducts);
+				console.log(allProducts);
+			})
 		})
 	}
 }
