@@ -146,10 +146,14 @@ class UI {
 			renderNumber.textContent = index;
 			renderName.textContent = product.name;
 			renderManufactorer.textContent = product.manufacturer;
-			renderExpirationDate.textContent = product.expirationDate;
+
+			const newDate = new Date(product.expirationDate);
+			const isoDate = newDate.toISOString();
+			renderExpirationDate.textContent = isoDate;
+
 			renderForm.textContent = product.form;
 			removeButton.textContent = 'Delete';
-			
+
 			if(product instanceof CapsuleProduct){
 				renderQuantity.textContent = `${product.quantity} pcs`;
 			} else if (product instanceof LiquidProduct) {
