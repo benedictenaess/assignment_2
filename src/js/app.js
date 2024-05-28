@@ -154,7 +154,6 @@ class UI {
 			removeButton.addEventListener('click', (e)=>{
 				const productId = e.currentTarget.parentElement.parentElement.dataset.id;
 				Product.deleteProduct(productId, allProducts);
-				console.log(allProducts);
 			})
 		})
 	}

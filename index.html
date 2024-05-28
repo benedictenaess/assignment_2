@@ -9,19 +9,19 @@
 <body>
 	<main>
 		<section class="input-container">
+			<h2>Product information</h2>
 			<form class="input-form">
-				<h2>Product information</h2>
 				<div>
 					<label for="name">Product name</label>
-					<input type="text" name="name" class="name-input">
+					<input type="text" name="name" id="name" class="name-input">
 				</div>
 				<div>
 					<label for="manufacturer">Manufacturer</label>
-					<input type="text" name="manufacturer" class="manufacturer-input">
+					<input type="text" name="manufacturer" id="manufacturer" class="manufacturer-input">
 				</div>
 				<div>
 					<label for="date">Expiration date</label>
-					<input type="date" name="date" class="expiration-date-input">
+					<input type="date" name="date" id="date" class="expiration-date-input">
 				</div>
 				<div>
 					<label for="form">Form</label>
@@ -33,11 +33,11 @@
 				</div>
 				<div>
 					<label for="dosage">Dosage</label>
-					<input type="number" name="dosage" class="dosage-input" disabled>
+					<input type="number" name="dosage" id="dosage" class="dosage-input" disabled>
 				</div>
 				<div>
 					<label for="quantity">Tablets</label>
-					<input type="number" name="quantity" class="quantity-input" disabled>
+					<input type="number" name="quantity" id="quantity" class="quantity-input" disabled>
 				</div>
 				<p class="error-message">Error message</p>
 				<button class="submit-button">Submit</button>
