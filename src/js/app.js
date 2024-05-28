@@ -12,12 +12,10 @@ const errorMsg = document.querySelector('.error-message');
 const submitForm = document.querySelector('.input-form');
 const productUl = document.querySelector('.product-ul');
 
-//ARRAYS
-// const liquidProducts = [];
-// const capsuleProducts = [];
+//ARRAYS ---------------------------------------------------------------
 const allProducts = JSON.parse(localStorage.getItem('productData')) || [];
 
-//ADDEVENTLISTENERS
+//ADDEVENTLISTENERS ------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', ()=>{
 	UI.renderProducts(allProducts);
@@ -48,8 +46,6 @@ submitForm.addEventListener('submit', (e)=>{
 			);
 		}
 		Product.addProduct(newProduct);
-		// console.log(newProduct);
-		// console.log(allProducts);
 		storeProduct(allProducts);
 		UI.renderProducts(allProducts);
 		submitForm.reset();
@@ -68,7 +64,7 @@ selectInput.addEventListener('change', ()=>{
 	}
 })
 
-// CLASSES
+// CLASSES ------------------------------------------------------------------------
 class Product {
 	constructor(name, manufacturer, expirationDate, form){
 		this.name = name;
@@ -78,11 +74,6 @@ class Product {
 		this.ID = Date.now();
 	}
 	static addProduct(product) {
-		// if(product.form === 'liquid'){
-		// 	liquidProducts.push(product);
-		// } else if (product.form === 'capsule') {
-		// 	capsuleProducts.push(product);
-		// }
 		allProducts.push(product);
 	}
 	static deleteProduct(id, productArray){
@@ -113,7 +104,7 @@ class CapsuleProduct extends Product {
 	}
 }
 
-//Render CLASS
+//RENDER CLASS ------------------------------------------------------------------------
 class UI {
 	static renderProducts(allProducts) {
 		productUl.textContent = '';
@@ -122,7 +113,7 @@ class UI {
 		allProducts.forEach((product)=>{
 			index ++;
 
-			//ELEMENTS FROM DOM
+			//ELEMENTS FROM DOM ---------------------------
 			const productRow = document.createElement('li');
 			const renderNumber = document.createElement('span');
 			const renderName = document.createElement('span');
@@ -133,23 +124,20 @@ class UI {
 			const renderRemove = document.createElement('span');
 			const removeButton = document.createElement('button');
 			
-			//APPEND
+			//APPEND ------------------------------------
 			productUl.append(productRow);
 			productRow.append(renderNumber, renderName, renderManufactorer, renderExpirationDate, renderForm, renderQuantity, renderRemove );
 			renderRemove.append(removeButton);
 			
-			//ADD CLASSES
+			//ADD CLASSES ------------------------------------
 			productRow.classList.add('product-row');
 			removeButton.classList.add('delete-button');
 
-			//TEXTCONTENT
+			//TEXTCONTENT ------------------------------------
 			renderNumber.textContent = index;
 			renderName.textContent = product.name;
 			renderManufactorer.textContent = product.manufacturer;
-
-			const newDate = new Date(product.expirationDate);
-			const isoDate = newDate.toISOString();
-			renderExpirationDate.textContent = isoDate;
+			renderExpirationDate.textContent = product.expirationDate;
 
 			renderForm.textContent = product.form;
 			removeButton.textContent = 'Delete';
@@ -160,7 +148,7 @@ class UI {
 				renderQuantity.textContent = `${product.dosage} ml`;
 			}
 			
-			//DELETE
+			//DELETE ---------------------------------------------
 			productRow.dataset.id = product.ID;
 
 			removeButton.addEventListener('click', (e)=>{
@@ -172,7 +160,7 @@ class UI {
 	}
 }
 
-//LOCAL STORAGE
+//LOCAL STORAGE ------------------------------------------------------
 function storeProduct(productArray){
 	localStorage.setItem('productData', JSON.stringify(productArray));
 };

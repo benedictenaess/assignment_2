@@ -3,53 +3,33 @@ const validateInput = (name, manufacturer, expirationDate, selectElement, dosage
 		errorStatus: false,
 		errorMsg: '',
 	}
-	if (!name || !manufacturer || !expirationDate){
-		errors = {
-			errorStatus: true,
-			errorMsg: 'All fields must be filled out'
-		}
+	if (!name || !manufacturer || !expirationDate || selectElement === 'select'){
+		errors.errorStatus = true;
+		errors.errorMsg = 'All fields must be filled out';
 		errorSpan.style.visibility = 'visible';
-		errorSpan.textContent = errors.errorMsg;
-	} if (selectElement === 'select'){
-		errors = {
-			errorStatus: true,
-			errorMsg: 'All fields must be filled out',
-		}
+	
+	} else if (selectElement === 'liquid' && !dosage){
+		errors.errorStatus = true;
+		errors.errorMsg = 'All fields must be filled out';
 		errorSpan.style.visibility = 'visible';
-		errorSpan.textContent = errors.errorMsg;
-	}else if(selectElement === 'liquid' && !dosage){
-		errors = {
-			errorStatus: true,
-			errorMsg: 'All fields must be filled out',
-		}
-		errorSpan.style.visibility = 'visible';
-		errorSpan.textContent = errors.errorMsg;
+
 	} else if (selectElement === 'capsule' && !quantity){
-		errors = {
-			errorStatus: true,
-			errorMsg: 'All fields must be filled out',
-		}
+		errors.errorStatus = true;
+		errors.errorMsg = 'All fields must be filled out';
 		errorSpan.style.visibility = 'visible';
-		errorSpan.textContent = errors.errorMsg;
+
 	} else {
-		errors = {
-			errorStatus: false,
-			errorMsg: ''
-		}
+		errors.errorStatus = false;
+		errors.errorMsg = '';
 		errorSpan.style.visibility = 'hidden';
-		errorSpan.textContent = errors.errorMsg;
 	}
+
+	errorSpan.textContent = errors.errorMsg;
 	
 	const validationErrorStatus = ()=>{
 		return errors.errorStatus
 	}
 	return {validationErrorStatus}
 }
-
-// const removeErrorMsg =(name, id, manufacturer, expirationDate, quantity, form, errorSpan)=>{
-// 	if (name && manufacturer && expirationDate && quantity){
-// 		errorSpan.style.visibility = 'hidden';
-// 	}
-// }
 
 export {validateInput}
